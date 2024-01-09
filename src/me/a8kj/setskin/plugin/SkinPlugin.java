@@ -5,9 +5,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandMap;
-import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,7 +14,6 @@ import com.google.common.collect.Sets;
 
 import lombok.Data;
 import me.a8kj.setskin.entity.Configuration;
-import net.minecraft.server.v1_8_R3.MinecraftServer;
 
 @Data
 public class SkinPlugin {
@@ -25,7 +22,7 @@ public class SkinPlugin {
     private final Logger logger;
 
     private final Set<Listener> listeners = Sets.newHashSet();
-    private final Set<Command> commands = Sets.newHashSet();
+    private final Map<String, CommandExecutor> commands = Maps.newHashMap();
 
     private final Map<String, Configuration> configurations = Maps.newHashMap();
 
@@ -75,25 +72,23 @@ public class SkinPlugin {
     }
 
     private void registerCommands() {
-        CraftServer craftServer = MinecraftServer.getServer().server;
-        CommandMap commandMap = craftServer.getCommandMap();
-        for (Command command : commands) {
-            commandMap.register(command.getName(), "skinplugin", command);
+        this.commands.forEach((name, command) -> {
+
+            this.javaPlugin.getCommand(name).setExecutor(command);
             this.logger.info("[Commands] Registerd " + command.getClass().getSimpleName() + " Successfully !");
-
-        }
+        });
     }
 
-    public void addCommand(Command command) {
-        if (commands.contains(command))
+    public void addCommand(String command_name, CommandExecutor command) {
+        if (commands.containsKey(command_name) || commands.containsValue(command))
             return;
-        commands.add(command);
+        commands.put(command_name, command);
     }
 
-    public void removeCommand(Command command) {
-        if (!commands.contains(command))
+    public void removeCommand(String command_name, CommandExecutor command) {
+        if (!commands.containsKey(command_name) || !commands.containsValue(command))
             return;
-        commands.remove(command);
+        commands.remove(command_name);
     }
 
     public void addListener(Listener listener) {

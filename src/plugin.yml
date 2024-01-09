@@ -1,6 +1,7 @@
 name: SkinPlugin
 version: 0.1
 main:  me.a8kj.setskin.plugin.SkinPluginMain
+depend: [SkinsRestorer]
 commands:
   nick:
   unnick:

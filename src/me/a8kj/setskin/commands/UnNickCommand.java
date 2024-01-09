@@ -1,26 +1,21 @@
 package me.a8kj.setskin.commands;
 
-import java.util.Arrays;
-
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.a8kj.setskin.entity.SkinManager;
 import me.a8kj.setskin.manager.SimpleSkinManager;
 import me.a8kj.setskin.utils.SimpleUtils;
+import net.md_5.bungee.api.ChatColor;
 
-public class UnNickCommand extends Command {
+public class UnNickCommand implements CommandExecutor {
 
     private final SkinManager simpleSkinManager = new SimpleSkinManager();
 
-    public UnNickCommand() {
-        super("unnick", "to remove your nick", "/unnick", Arrays.asList("removenick", "nonick", "unn"));
-        setPermission("skinplugin.unnick.use");
-    }
-
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("This Command to player usage only!");
@@ -29,7 +24,9 @@ public class UnNickCommand extends Command {
 
         Player player = (Player) sender;
 
-        if (!testPermission(player)) {
+        if (!player.hasPermission("skinplugin.unnick.use")) {
+            player.sendMessage(ChatColor.RED
+                    + "I'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.");
             return false;
         }
         if (args.length != 0) {

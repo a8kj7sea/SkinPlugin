@@ -10,23 +10,26 @@ public class SimpleSkinManager implements SkinManager {
 
     @Override
     public void setSkin(Player player, String skin_name) {
-        String command = "/skin set " + player.getName() + " " + skin_name;
+        String command = "/skin set " + skin_name + " " + player.getName();
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+        updateSkin(player);
         player.setDisplayName(skin_name);
         player.setPlayerListName(skin_name);
     }
 
     @Override
     public void removeSkin(Player player) {
-        String command = "/skin update " + player.getName();
+        String command = "/skin clear " + player.getName();
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+        updateSkin(player);
         player.setDisplayName(player.getName());
         player.setPlayerListName(player.getName());
     }
 
     @Override
     public void updateSkin(Player player) {
-        this.removeSkin(player);
+        String command = "/skin update " + player.getName();
+        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
     }
 
     @Override

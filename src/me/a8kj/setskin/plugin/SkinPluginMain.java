@@ -33,9 +33,10 @@ public class SkinPluginMain extends JavaPlugin {
     }
 
     private void init() {
-        //skinPlugin.addConfiguration("messages", new Configuration("messages.yml", this, true));
-        skinPlugin.addCommand(new NickCommand());
-        skinPlugin.addCommand(new UnNickCommand());
+        // skinPlugin.addConfiguration("messages", new Configuration("messages.yml",
+        // this, true));
+        skinPlugin.addCommand("nick", new NickCommand());
+        skinPlugin.addCommand("unnick", new UnNickCommand());
         skinPlugin.onEnable();
     }
 
