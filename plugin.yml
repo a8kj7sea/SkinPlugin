@@ -1,5 +1,5 @@
 name: SkinPlugin
-version: 0.1
+version: 0.3
 main:  me.a8kj.setskin.plugin.SkinPluginMain
 depend: [SkinsRestorer]
 commands:
