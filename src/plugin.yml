@@ -1,0 +1,6 @@
+name: SkinPlugin
+version: 0.1
+main:  me.a8kj.setskin.plugin.SkinPluginMain
+commands:
+  nick:
+  unnick:
