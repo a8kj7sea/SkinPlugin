@@ -16,9 +16,9 @@ public class SkinPluginMain extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        if (!SkinPlugin.found("SkinRestorer")) {
+        if (!SkinPlugin.found("SkinsRestorer")) {
             this.getLogger().log(Level.SEVERE,
-                    "Faild to load `SkinPlugin` please make sure you have install `SkinRestorer` \u00a7cSkinRestorer not found!");
+                    "Faild to load `SkinPlugin` please make sure you have install `SkinsRestorer` [not found]!");
             SkinPlugin.shutdown(this);
             return;
         } else {
